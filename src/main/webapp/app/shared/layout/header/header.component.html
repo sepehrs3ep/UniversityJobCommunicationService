@@ -1,0 +1,34 @@
+<mat-toolbar class="top-toolbar">
+  <div class="part-start">
+    <button mat-raised-button>
+      بازگشت
+    </button>
+  </div>
+  <div class="part-end">
+    <button [matMenuTriggerFor]="userMenu" class="dropdown">
+      <img class="imeg" src="../../../../assets/images/JPEG/41581915.jpeg">
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <div class="menu-container">
+        <button mat-menu-item>
+          <div class="item">
+            <mat-icon class="item-icon">person_outline</mat-icon>
+            <span>پروفایل</span>
+          </div>
+        </button>
+        <button mat-menu-item routerLink="/change-password">
+          <div class="item">
+            <mat-icon class="item-icon">autorenew</mat-icon>
+            <span>تغییر رمز عبور</span>
+          </div>
+        </button>
+        <button mat-menu-item>
+          <div class="item">
+            <mat-icon class="item-icon">settings</mat-icon>
+            <span>تنظیمات</span>
+          </div>
+        </button>
+      </div>
+    </mat-menu>
+  </div>
+</mat-toolbar>
