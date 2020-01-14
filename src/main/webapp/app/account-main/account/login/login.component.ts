@@ -2,7 +2,6 @@ import { AfterContentInit, Component, ElementRef, Renderer } from '@angular/core
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ICredentials } from '@app/core/auth/credentials.model';
-import { StateStorageService } from '@app/core/auth/state-storage.service';
 import { LoginService } from './login.service';
 
 @Component({
@@ -28,7 +27,6 @@ export class LoginComponent implements AfterContentInit {
   })
   constructor(
     private loginService: LoginService,
-    private stateStorageService: StateStorageService,
     private elementRef: ElementRef,
     private renderer: Renderer,
     private router: Router) {
@@ -53,20 +51,9 @@ export class LoginComponent implements AfterContentInit {
       })
       .then(() => {
         this.authenticationError = false;
-        //  	this.activeModal.dismiss('login success');
-        if (
-          this.router.url === '/register' ||
-          /^\/activate\//.test(this.router.url) ||
-          /^\/reset\//.test(this.router.url)
-        ) {
+        this.isEmployer ?
+          this.router.navigate(['/job']) :
           this.router.navigate(['/home']);
-        }
-        const redirect = this.stateStorageService.getUrl();
-        if (redirect) {
-          this.stateStorageService.storeUrl('');
-          this.router.navigate([redirect]);
-        }
-        this.router.navigate(['/home']);
       })
       .catch((error) => {
         this.authenticationError = true;

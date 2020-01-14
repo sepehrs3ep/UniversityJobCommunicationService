@@ -1,8 +1,9 @@
-HELP.md
-target/
+/target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
+
+### Visual Studio ###
+.vscode
+.vs
 
 ### STS ###
 .apt_generated
@@ -21,11 +22,15 @@ target/
 
 ### NetBeans ###
 /nbproject/private/
+/build/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
 
-### VS Code ###
-.vscode/
+
+# dependencies
+/node_modules
+
+# frontend maven plugin
+/node/

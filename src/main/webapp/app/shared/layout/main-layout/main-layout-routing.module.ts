@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { JobComponent } from './job.component';
+import { MainLayoutComponent } from './main-layout.component';
 
 
 const routes: Routes = [
   {
-    path: 'job',
-    component: JobComponent,
+    path: '',
+    outlet: 'main',
+    component: MainLayoutComponent
   }
 ];
 
@@ -14,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class JobRoutingModule { }
+export class MainLayoutRoutingModule { }

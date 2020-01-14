@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { JobRoutingModule } from './job-routing.module';
 import { JobComponent } from './job.component';
-import { JobRoutingModule } from './job.routing.module';
 
 @NgModule({
   declarations: [

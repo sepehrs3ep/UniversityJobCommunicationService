@@ -1,0 +1,16 @@
+.top-nav {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 5rem;
+  background-color: yellow;
+}
+
+.lists-container {
+  position: relative;
+  z-index: 10;
+}
+
+.master-wrapper-page{
+  margin-top: 80px;
+}

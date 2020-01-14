@@ -80,10 +80,12 @@ export class RegisterComponent implements OnInit {
     this.accountService.register(this.credentials.value, this.isEmployer).subscribe(() => {
       if (this.isEmployer)
         this.router.navigate(['account', 'register'], { queryParams: { step: 2 } })
-      else
+      else {
         this.isEmployer ?
           this.router.navigate(['job']) :
           this.router.navigate(['home'])
+      }
+
     });
   }
   submitEmpolyer() {
