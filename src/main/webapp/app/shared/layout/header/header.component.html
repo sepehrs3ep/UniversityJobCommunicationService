@@ -1,8 +1,17 @@
 <mat-toolbar class="top-toolbar">
-  <div class="part-start">
-    <button mat-raised-button>
-      بازگشت
-    </button>
+  <div class="part-start" style="display: flex; width: 100%">
+    <div class="side-nave-btn">
+      <button mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <img class="logo" src="https://www.digikala.com/static/files/ddcba6ed.svg" alt="">
+    <div class="search-container">
+      <mat-form-field style="text-align: right; font-size:small; width:100%">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="جست و جو">
+      </mat-form-field>
+    </div>
   </div>
   <div class="part-end">
     <button [matMenuTriggerFor]="userMenu" class="dropdown">
