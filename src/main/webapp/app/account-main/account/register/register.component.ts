@@ -2,7 +2,7 @@ import { KeyValue } from '@angular/common';
 import { Component, ElementRef, OnInit, Renderer } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { companyKeyValue } from '@app/shared/shared-common/key-value/company-key-value';
+import { CompanyKeyValue } from '@app/shared/shared-common/key-value/company-key-value';
 import { AuthServerProvider } from '../../../core/auth/auth-jwt.service';
 import { CompanyService } from '../../../core/service/company/company.service';
 
@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private accountService: AuthServerProvider, private router: Router,
     private route: ActivatedRoute,
-    private companyKeyValues: companyKeyValue,
+    private companyKeyValues: CompanyKeyValue,
     private companyService: CompanyService,
     private elementRef: ElementRef,
     private renderer: Renderer, ) {

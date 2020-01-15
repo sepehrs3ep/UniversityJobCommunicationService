@@ -9,6 +9,9 @@ import { JobModule } from './job/job.module';
   imports: [
     CommonModule,
     JobModule
+  ],
+  exports: [
+    JobModule
   ]
 })
 export class EntityModule { }

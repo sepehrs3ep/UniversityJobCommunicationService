@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { companyKeyValue } from '@app/shared/shared-common/key-value/company-key-value';
+import { CompanyKeyValue } from '@app/shared/shared-common/key-value/company-key-value';
 import { SharedLibModule } from '@app/shared/shared-lib/shared-lib.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { AccountRoutingModule } from './account-routing.module';
@@ -19,7 +19,7 @@ import { RegisterComponent } from './register/register.component';
     SharedLibModule
   ],
   providers: [
-    companyKeyValue
+    CompanyKeyValue
   ]
 })
 export class AccountModule { }
