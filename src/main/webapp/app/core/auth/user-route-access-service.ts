@@ -59,7 +59,6 @@ export class UserRouteAccessService implements CanActivate {
   }
 
   simpleCanActive(): boolean {
-    console.log(this.principal.isAuthenticated());
     if (this.authService.getToken() !== null && this.authService.getToken() !== undefined)
       return true;
     this.router.navigate(['account', 'login']);
