@@ -6,7 +6,6 @@ import { SharedModule } from '@app/shared/shared.module';
 import { SwiperConfigInterface, SwiperModule, SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { SideComponent } from './side/side.component';
 import { TileComponent } from './tile/tile.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -19,7 +18,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 };
 
 @NgModule({
-  declarations: [HomeComponent, TileComponent, SideComponent],
+  declarations: [HomeComponent, TileComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

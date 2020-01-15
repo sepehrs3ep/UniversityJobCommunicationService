@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UserRoleService } from '../service/user-role.service';
 import { ICredentials } from './credentials.model';
 
 
@@ -11,7 +12,8 @@ export class AuthServerProvider {
   constructor(
     private http: HttpClient,
     private $localStorage: LocalStorageService,
-    private $sessionStorage: SessionStorageService
+    private $sessionStorage: SessionStorageService,
+    private userRoleService: UserRoleService
   ) {
   }
 
@@ -39,10 +41,12 @@ export class AuthServerProvider {
         if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
           const jwt = bearerToken.slice(7, bearerToken.length);
           this.storeAuthenticationToken(jwt, true);
+          this.userRoleService.setUserRole(subUrl);
           return jwt;
         } else if (bearerToken) {
           const jwt = bearerToken;
           this.storeAuthenticationToken(jwt, true);
+          this.userRoleService.setUserRole(subUrl);
           return jwt;
         }
         return '';
@@ -67,10 +71,12 @@ export class AuthServerProvider {
         if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
           const jwt = bearerToken.slice(7, bearerToken.length);
           this.storeAuthenticationToken(jwt, true);
+          this.userRoleService.setUserRole(subUrl);
           return jwt;
         } else if (bearerToken) {
           const jwt = bearerToken;
           this.storeAuthenticationToken(jwt, true);
+          this.userRoleService.setUserRole(subUrl);
           return jwt;
         }
         return '';

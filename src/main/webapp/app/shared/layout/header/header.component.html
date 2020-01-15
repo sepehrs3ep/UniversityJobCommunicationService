@@ -1,7 +1,7 @@
 <mat-toolbar class="top-toolbar">
   <div class="part-start" style="display: flex; width: 100%">
     <div class="side-nave-btn">
-      <button mat-icon-button>
+      <button mat-icon-button (click)="tog()">
         <mat-icon>menu</mat-icon>
       </button>
     </div>
@@ -25,16 +25,16 @@
             <span>پروفایل</span>
           </div>
         </button>
-        <button mat-menu-item routerLink="/change-password">
+        <button mat-menu-item>
           <div class="item">
             <mat-icon class="item-icon">autorenew</mat-icon>
             <span>تغییر رمز عبور</span>
           </div>
         </button>
-        <button mat-menu-item>
+        <button (click)="logout()" mat-menu-item>
           <div class="item">
-            <mat-icon class="item-icon">settings</mat-icon>
-            <span>تنظیمات</span>
+            <mat-icon class="item-icon">sentiment_dissatisfied</mat-icon>
+            <span>خروج</span>
           </div>
         </button>
       </div>
