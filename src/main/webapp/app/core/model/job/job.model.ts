@@ -6,7 +6,7 @@ export interface IJob extends ModelBase {
   employer: IEmployer;
   universityTypeindex: number;
   description: string;
-  jobCategoryTypeIndex: number;
-  coperationTypeIndex: number;
-  requiredGenderTypeIndex: number;
+  categoryType: number;
+  cooperationType: number;
+  requiredGender: number;
 }

@@ -1,0 +1,54 @@
+<div>
+  <div class="container">
+    <div class="header"></div>
+    <form [formGroup]="jobForm">
+      <div class="row-1">
+        <div>
+          <span>
+            زمینه شغلی:
+          </span>
+          <mat-form-field>
+            <mat-select formControlName="categoryType">
+              <mat-option *ngFor="let item of categoryTypes" [value]="item.key">
+                {{ item.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <span>
+            بازه زمانی:
+          </span>
+          <mat-form-field>
+            <mat-select formControlName="cooperationType">
+              <mat-option *ngFor="let item of cooperationTypes" [value]="item.key">
+                {{ item.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row-2">
+        <div>
+          <span>
+            جنیسیت:
+          </span>
+          <mat-form-field>
+            <mat-select formControlName="requiredGender">
+              <mat-option *ngFor="let item of requiredGenders" [value]="item.key">
+                {{ item.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row-3">
+        <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+          formControlName="description" id="description" matInput name="description" placeholder="شرح شغل"></textarea>
+      </div>
+    </form>
+    <button [disabled]="!jobForm.valid" mat-raised-button (click)="submit()">
+      ذخیره کردن
+    </button>
+  </div>
+</div>

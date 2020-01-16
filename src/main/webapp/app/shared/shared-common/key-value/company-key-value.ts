@@ -1,7 +1,7 @@
 import { KeyValue } from '@angular/common';
 import { Observable, of } from 'rxjs';
 
-export class companyKeyValue {
+export class CompanyKeyValue {
   getAll(): Observable<KeyValue<number, string>[]> {
     const array: KeyValue<number, string>[] = [
       {
