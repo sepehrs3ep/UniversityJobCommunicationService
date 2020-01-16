@@ -2,52 +2,56 @@
   <div class="container">
     <div class="header"></div>
     <form [formGroup]="jobForm">
-      <div class="row-1">
-        <div>
-          <span>
-            زمینه شغلی:
-          </span>
-          <mat-form-field>
-            <mat-select formControlName="categoryType">
-              <mat-option *ngFor="let item of categoryTypes" [value]="item.key">
-                {{ item.value }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+      <div class="form-container">
+        <div class="row-1">
+          <div>
+            <span>
+              زمینه شغلی:
+            </span>
+            <mat-form-field>
+              <mat-select [(ngModel)]="selected[0]" formControlName="categoryType">
+                <mat-option *ngFor="let item of categoryTypes" [value]="item.key">
+                  {{ item.value }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div style="margin-right: 20px;">
+            <span>
+              بازه زمانی:
+            </span>
+            <mat-form-field>
+              <mat-select [(ngModel)]="selected[1]" formControlName="cooperationType">
+                <mat-option *ngFor="let item of cooperationTypes" [value]="item.key">
+                  {{ item.value }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
-        <div>
-          <span>
-            بازه زمانی:
-          </span>
-          <mat-form-field>
-            <mat-select formControlName="cooperationType">
-              <mat-option *ngFor="let item of cooperationTypes" [value]="item.key">
-                {{ item.value }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <div class="row-2">
+          <div>
+            <span>
+              جنیسیت:
+            </span>
+            <mat-form-field>
+              <mat-select [(ngModel)]="selected[2]" formControlName="requiredGender">
+                <mat-option *ngFor="let item of requiredGenders" [value]="item.key">
+                  {{ item.value }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row-2">
+          <angular-editor id="editor1" formControlName="description" [config]="editorConfig"></angular-editor>
+
         </div>
       </div>
-      <div class="row-2">
-        <div>
-          <span>
-            جنیسیت:
-          </span>
-          <mat-form-field>
-            <mat-select formControlName="requiredGender">
-              <mat-option *ngFor="let item of requiredGenders" [value]="item.key">
-                {{ item.value }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row-3">
-        <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
-          formControlName="description" id="description" matInput name="description" placeholder="شرح شغل"></textarea>
-      </div>
+
+
     </form>
-    <button [disabled]="!jobForm.valid" mat-raised-button (click)="submit()">
+    <button class="btn" [disabled]="!jobForm.valid" mat-raised-button (click)="submit()">
       ذخیره کردن
     </button>
   </div>

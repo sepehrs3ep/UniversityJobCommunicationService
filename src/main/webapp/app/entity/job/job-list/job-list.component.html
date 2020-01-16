@@ -1,0 +1,160 @@
+<div class="container">
+  <div class="filter-container">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            بر اساس زمان
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="check-box-cont">
+          <div class="check-box">
+            <mat-checkbox>
+              <span>
+                پاره وقت
+              </span>
+            </mat-checkbox>
+          </div>
+          <div class="check-box">
+            <mat-checkbox><span>
+                تمام وقت
+              </span></mat-checkbox>
+          </div>
+          <div class="check-box">
+            <mat-checkbox><span>
+                کار آموزی
+              </span></mat-checkbox>
+          </div>
+          <div class="check-box">
+            <mat-checkbox><span>
+                شبانه
+              </span></mat-checkbox>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            جنسیت
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="check-box-cont">
+          <div class="check-box">
+            <mat-checkbox>
+              <span>
+                آقا
+              </span>
+            </mat-checkbox>
+          </div>
+          <div class="check-box">
+            <mat-checkbox><span>
+                خانم
+              </span></mat-checkbox>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            عنوان شغلی
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="check-box-cont">
+          <div class="check-box">
+            <mat-checkbox>
+              <span>
+                برنامه نویسی
+              </span>
+            </mat-checkbox>
+          </div>
+          <div class="check-box">
+            <mat-checkbox><span>
+                طراحی
+              </span></mat-checkbox>
+          </div>
+          <div class="check-box">
+            <mat-checkbox>
+              <span>
+                تحلیل شغلی
+              </span>
+            </mat-checkbox>
+          </div>
+          <div class="check-box">
+            <mat-checkbox><span>
+                مکانیک
+              </span></mat-checkbox>
+          </div>
+          <div class="check-box">
+            <mat-checkbox>
+              <span>
+                راهداری
+              </span>
+            </mat-checkbox>
+          </div>
+          <div class="check-box">
+            <mat-checkbox><span>
+                زمین شناسی
+              </span></mat-checkbox>
+          </div>
+          <div class="check-box">
+            <mat-checkbox>
+              <span>
+                راهنمایی و رانندگی
+              </span>
+            </mat-checkbox>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="list-container">
+    <mat-grid-list cols="1" rowHeight="144px">
+      <mat-grid-tile *ngFor="let job of jobs;let i = index" [colspan]="1" [rowspan]="1">
+        <ng-container *ngTemplateOutlet="tile; context: { item: job }">
+        </ng-container>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>
+
+
+<ng-template #tile let-job="item">
+  <div class="tile-container">
+    <div class="logo-cont">
+      <div> <img class="logo-img" src="../../../../assets/images/JPEG/41581915.jpeg">
+      </div>
+      <div class="company-detail">
+        <div class="company-title">
+          <div>
+            {{ job.company.name }}
+          </div>
+        </div>
+        <div class="company-chip">
+          <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+            <mat-chip class="chips" selected>
+              {{ job.cooperationType | JobEnum : 'cooperationTypes' }}
+            </mat-chip>
+            <mat-chip class="chips" selected>
+              {{ job.requiredGender | JobEnum : 'requiredGenders'}}
+            </mat-chip>
+            <mat-chip class="chips" selected>
+              {{ job.categoryType | JobEnum : 'categoryTypes'}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="resume-btn" mat-raised-button>
+        ارسال رزومه
+      </button>
+    </div>
+  </div>
+</ng-template>

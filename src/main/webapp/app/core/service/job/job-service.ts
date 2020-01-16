@@ -9,4 +9,11 @@ export class JobService {
   add(job: IJob) {
     return this.http.post('api/jobs', job);
   }
+
+  getEmployerJobs() {
+    return this.http.get<IJob[]>('api/jobs/employer');
+  }
+  getEmployeeJobs() {
+    return this.http.get<IJob[]>('api/jobs/employee');
+  }
 }

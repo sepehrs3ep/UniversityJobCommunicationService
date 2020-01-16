@@ -1,7 +1,7 @@
 <div class="list-container">
   <app-header [isOpen]="opened" (toggle)="sidenav.toggle()"></app-header>
   <div style="top: 70px;">
-    <mat-sidenav-container class="example-container">
+    <mat-sidenav-container class="example-container" (click)="sidenav.toggle()">
       <mat-sidenav class="sid-nave" #sidenav mode="side" position="end" [(opened)]="opened">
         <div class="div1">
           <ng-container *ngTemplateOutlet="sideNavMenu">
@@ -27,10 +27,10 @@
         </button>
       </div>
       <div class="menu-item">
-        <button mat-flat-button class="btn employer-menu">
-          <mat-icon>edit</mat-icon>
+        <button mat-flat-button class="btn employer-menu" [routerLink]="['job','list']">
+          <mat-icon>view_list</mat-icon>
           <span class="my-span">
-            ویرایش
+            مشاهده همه
           </span>
         </button>
       </div>
@@ -38,6 +38,16 @@
     </div>
   </ng-container>
   <ng-container *ngIf="!isEmployer">
-    employee
+    <div class="employer-menu-container">
+      <div class="menu-item">
+        <button mat-flat-button class="btn employer-menu" [routerLink]="['job','list']">
+          <mat-icon>view_list</mat-icon>
+          <span class="my-span">
+            مشاهده همه
+          </span>
+        </button>
+      </div>
+      <hr class="my-hr">
+    </div>
   </ng-container>
 </ng-template>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { JobService } from '@app/core/service/job/job-service';
 import { JobKeyValue } from '@app/shared/shared-common/key-value/job-key-value';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-job-crud',
@@ -11,6 +12,50 @@ import { JobKeyValue } from '@app/shared/shared-common/key-value/job-key-value';
 })
 export class JobCrudComponent implements OnInit {
 
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: 'auto',
+    minHeight: '300px',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: 'شرح شغلی ...',
+    defaultParagraphSeparator: '',
+    defaultFontName: '',
+    defaultFontSize: '',
+    fonts: [{
+      name: 'IRANSans',
+      class: 'IRANSans'
+    }],
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
+    ]
+  };
+
+  selected: number[] = [0, 1, 2];
   categoryTypes: KeyValue<number, string>[] = [];
   cooperationTypes: KeyValue<number, string>[] = [];
   requiredGenders: KeyValue<number, string>[] = [];
@@ -27,7 +72,7 @@ export class JobCrudComponent implements OnInit {
     description: new FormControl('', [
       Validators.required,
       Validators
-        .minLength(50)
+        .minLength(200)
     ])
   })
   constructor(
