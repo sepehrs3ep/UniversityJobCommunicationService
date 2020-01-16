@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { JobKeyValue } from '@app/shared/shared-common/key-value/job-key-value';
 import { SharedLibModule } from '@app/shared/shared-lib/shared-lib.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { JobCrudComponent } from './job-crud/job-crud.component';
@@ -18,6 +19,8 @@ import { JobComponent } from './job.component';
     SharedModule,
   ],
   exports: [],
-  providers: [],
+  providers: [
+    JobKeyValue
+  ],
 })
 export class JobModule { }
