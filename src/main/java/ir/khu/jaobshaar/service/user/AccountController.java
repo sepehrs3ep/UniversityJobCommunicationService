@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/account")
-public class AccountController {
+public class 	AccountController {
 
     private final UserManager userManager;
 
