@@ -8,7 +8,7 @@ public class StudentsMockData {
     static {
         studentMap.put(
                 "973309300",
-                Arrays.asList("123456","0")
+                Arrays.asList("123456","1")
         );
         studentMap.put(
                 "962023026",
