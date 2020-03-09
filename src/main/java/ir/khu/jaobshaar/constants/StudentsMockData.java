@@ -1,28 +1,11 @@
 package ir.khu.jaobshaar.constants;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class StudentsMockData {
-    private static final Map<String, List<String>> studentMap = new HashMap<>();
-
-    static {
-        studentMap.put(
-                "973309300",
-                Arrays.asList("123456","1")
-        );
-        studentMap.put(
-                "962023026",
-                Arrays.asList("123456","0")
-        );
-        studentMap.put(
-                "962023004",
-                Arrays.asList("123456","1")
-        );
-        studentMap.put(
-                "962023011",
-                Arrays.asList("123456","1")
-        );
-    }
+    private static Map<String, List<String>> studentMap = new HashMap<>();
 
     public static boolean isStudentExist(
             final String username,
@@ -37,7 +20,11 @@ public class StudentsMockData {
         return password.equalsIgnoreCase(existPassword);
     }
 
-    public static Integer getGenderTypeIndex(String username){
+    public static Integer getGenderTypeIndex(String username) {
         return Integer.valueOf(studentMap.get(username).get(1));
+    }
+
+    public static void setStudentMap(Map<String, List<String>> studentMap) {
+        StudentsMockData.studentMap = studentMap;
     }
 }
