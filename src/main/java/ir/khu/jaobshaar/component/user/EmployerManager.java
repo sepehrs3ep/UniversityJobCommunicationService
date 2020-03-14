@@ -2,8 +2,11 @@ package ir.khu.jaobshaar.component.user;
 
 import ir.khu.jaobshaar.entity.enums.PersonRuleType;
 import ir.khu.jaobshaar.entity.model.Employer;
+import ir.khu.jaobshaar.entity.model.Job;
 import ir.khu.jaobshaar.repository.EmployerRepository;
+import ir.khu.jaobshaar.service.domain.JobDomain;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
+import ir.khu.jaobshaar.service.mapper.JobMapper;
 import ir.khu.jaobshaar.utils.ValidationUtils;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
@@ -11,16 +14,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+import java.util.Set;
+
+
 @Service
 public class EmployerManager {
 
     private EmployerRepository employerRepository;
 
     private PasswordEncoder bcryptEncoder;
+    private final JobMapper jobMapper;
+    private final UserManager userManager;
 
-    public EmployerManager(EmployerRepository employerRepository, PasswordEncoder bcryptEncoder) {
+    public EmployerManager(EmployerRepository employerRepository, PasswordEncoder bcryptEncoder, JobMapper jobMapper, UserManager userManager) {
         this.employerRepository = employerRepository;
         this.bcryptEncoder = bcryptEncoder;
+        this.jobMapper = jobMapper;
+        this.userManager = userManager;
     }
 
     @Transactional
@@ -69,4 +80,13 @@ public class EmployerManager {
         );
     }
 
+    public JobDomain getOne(long id) {
+        Set<Job> jobs = employerRepository.findByUsername(userManager.getCurrentUser().getUsername()).getJobs();
+        if (jobs != null) {
+            Optional<Job> optionalJob = jobs.stream().filter(job -> job.getId().equals(id)).findFirst();
+            if (optionalJob.isPresent())
+                return jobMapper.toDomain(optionalJob.get());
+        }
+        return null;
+    }
 }
