@@ -74,12 +74,6 @@ public class JobManager {
     }
 
     public JobDomain getJobById(long id) {
-        final User currentUser = userDetailsService.getCurrentUser();
-
-        if (currentUser.getRoleTypeIndex() == PersonRuleType.EMPLOYER) {
-            throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, " ERROR_CODE_ACCESS_NOT_PERMITTED this is only for employee ");
-        }
-
         final Optional<Job> job = jobRepository.findById(id);
 
         if (job.isEmpty()) {
