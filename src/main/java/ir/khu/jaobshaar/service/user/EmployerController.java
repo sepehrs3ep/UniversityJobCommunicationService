@@ -3,6 +3,7 @@ package ir.khu.jaobshaar.service.user;
 import ir.khu.jaobshaar.component.authenticate.AuthenticationManager;
 import ir.khu.jaobshaar.component.job.JobManager;
 import ir.khu.jaobshaar.component.user.EmployerManager;
+import ir.khu.jaobshaar.service.domain.JobDomain;
 import ir.khu.jaobshaar.service.domain.ResumeDomain;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +41,10 @@ public class EmployerController {
     @GetMapping("/resume")
     public ResponseEntity<List<ResumeDomain>> getResumeOfJobs(@RequestParam Long jobId){
         return ResponseEntity.ok().body(jobManager.getJobResume(jobId));
+    }
+
+    @GetMapping
+    public ResponseEntity<JobDomain> getOneJob(@RequestParam long id){
+        return ResponseEntity.ok(employerManager.getOne(id));
     }
 }
