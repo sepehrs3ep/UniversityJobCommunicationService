@@ -59,22 +59,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring()
-				.antMatchers(HttpMethod.OPTIONS, "/**");
+				.antMatchers(HttpMethod.OPTIONS, "/**")
+				.and()
+				.ignoring()
+				.antMatchers(
+						HttpMethod.GET,
+						"/",
+						"/*.html",
+						"/favicon.ico",
+						"/**/*.html",
+						"/**/*.css",
+						"/**/*.js",
+						"/**/*.woff",
+						"/**/*.woff2",
+						"/**/*.jpg",
+						"/**/*.png",
+						"/**/manifest.json"
+
+				);
 
 	}
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        // We don't need CSRF for this example
-        httpSecurity.csrf().disable()
-                // dont authenticate this particular request
-                .authorizeRequests().antMatchers(
-                "/api/employee/register",
-                "/api/employee/login",
-                "/api/employer/register",
-                "/api/employer/login",
-				"/account/login","/", "/**", "/assets/scss/**", "/assets/fonts/**","/assets/images/**"
-        ).permitAll()
+		httpSecurity
+				.csrf().disable()
+				// don't create session
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+
+				.authorizeRequests()
+
+				// Un-secure H2 Database
+				.antMatchers("/account/**",
+						"/api/employee/register",
+						"/api/employee/login",
+						"/api/employer/register",
+						"/api/employer/login").permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and()
                 // make sure we use stateless session; session won't be used to
