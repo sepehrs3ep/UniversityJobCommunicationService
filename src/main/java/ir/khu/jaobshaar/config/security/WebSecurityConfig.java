@@ -60,11 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring()
 				.antMatchers(HttpMethod.OPTIONS, "/**")
-				.and()
-				.ignoring()
 				.antMatchers(
-						HttpMethod.GET,
-						"/",
+						"/**",
 						"/*.html",
 						"/favicon.ico",
 						"/**/*.html",
@@ -90,7 +87,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 
 				// Un-secure H2 Database
-				.antMatchers("/account/**",
+				.antMatchers(
+						"/account/**",
 						"/api/employee/register",
 						"/api/employee/login",
 						"/api/employer/register",
