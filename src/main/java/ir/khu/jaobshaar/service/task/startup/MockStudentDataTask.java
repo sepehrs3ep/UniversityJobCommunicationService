@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Component
 public class MockStudentDataTask implements StartUpTask {
-    private static final String url = "C:\\Users\\fateme\\Desktop\\data.xlsx";
+    private static final String url = "src/main/resources/data.xlsx";
 
     @Override
     public void run(ApplicationArguments args) {
