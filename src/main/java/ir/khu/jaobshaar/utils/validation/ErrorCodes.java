@@ -18,5 +18,8 @@ public class ErrorCodes {
     public static final int ERROR_CODE_RESUME_IS_NOT_EXIST = 614;
     public static final int ERROR_CODE_RESUME_URL_ALREADY_EXIST = 615;
     public static final int ERROR_CODE_JOB_NOT_FOUND = 616;
-    public static final int ERROR_CODE_REQUIRED_GENDER_NOT_ACCESS=617;
+    public static final int ERROR_CODE_REQUIRED_GENDER_NOT_ACCESS = 617;
+    public static final int ERROR_CODE_EMAIL_NOT_EXIST = 618;
+    public static final int ERROR_CODE_TAKEN_PASSWORD_BEFORE = 619;
+    public static final int ERROR_CODE_INPUT_PASSWORDS_NOT_MATCH = 620;
 }

@@ -60,10 +60,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     public ir.khu.jaobshaar.entity.model.User save(ir.khu.jaobshaar.entity.model.User user) {
-        ir.khu.jaobshaar.entity.model.User newUser = new ir.khu.jaobshaar.entity.model.User();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        newUser.setEmail(user.getEmail());
-        return userDao.save(newUser);
+        user.setPassword(bcryptEncoder.encode(user.getPassword()));
+        return userDao.save(user);
     }
 }
