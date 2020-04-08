@@ -3,8 +3,10 @@ package ir.khu.jaobshaar.component.resume;
 import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
 import ir.khu.jaobshaar.entity.enums.PersonRuleType;
 import ir.khu.jaobshaar.entity.model.Employee;
+import ir.khu.jaobshaar.entity.model.Job;
 import ir.khu.jaobshaar.entity.model.Resume;
 import ir.khu.jaobshaar.entity.model.User;
+import ir.khu.jaobshaar.repository.EmployeeJobRepository;
 import ir.khu.jaobshaar.repository.EmployeeRepository;
 import ir.khu.jaobshaar.repository.EmployerRepository;
 import ir.khu.jaobshaar.repository.ResumeRepository;
@@ -16,20 +18,27 @@ import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+import java.util.Set;
+
 @Service
 public class ResumeManager {
     private final JwtUserDetailsService userDetailsService;
     private final ResumeRepository resumeRepository;
     private final EmployeeRepository employeeRepository;
-    private final EmployerRepository employerRepository;
     private final ResumeMapper resumeMapper;
+    private final EmployeeJobRepository employeeJobRepository;
+    private final EmployerRepository employerRepository;
 
-    public ResumeManager(JwtUserDetailsService userDetailsService, ResumeRepository resumeRepository, EmployeeRepository employeeRepository, EmployerRepository employerRepository, ResumeMapper resumeMapper) {
+    public ResumeManager(JwtUserDetailsService userDetailsService, ResumeRepository resumeRepository,
+                         EmployeeRepository employeeRepository, ResumeMapper resumeMapper,
+                         EmployeeJobRepository employeeJobRepository, EmployerRepository employerRepository) {
         this.userDetailsService = userDetailsService;
         this.resumeRepository = resumeRepository;
         this.employeeRepository = employeeRepository;
-        this.employerRepository = employerRepository;
         this.resumeMapper = resumeMapper;
+        this.employeeJobRepository = employeeJobRepository;
+        this.employerRepository = employerRepository;
     }
 
     @Transactional
@@ -90,4 +99,52 @@ public class ResumeManager {
         return resumeDTO;
     }
 
+    @Transactional
+    public void addResume(String fileName) {
+        Employee employee = employeeRepository.findByUsername(userDetailsService.getCurrentUser().getUsername());
+
+        if (employee == null)
+            throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, " Employer can't add resume");
+        if (employee.getResume() != null)
+            throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_ALREADY_EXIST, "you.have.resume");
+
+        Resume resume = new Resume();
+        resume.setUuid(fileName);
+        resume.setEmployee(employee);
+        employee.setResume(resume);
+        resumeRepository.save(resume);
+    }
+
+    @Transactional
+    public void updateResume(String fileName) {
+        Employee employee = employeeRepository.findByUsername(userDetailsService.getCurrentUser().getUsername());
+        if (employee == null)
+            throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, " Employer can't add resume");
+        Resume resume = employee.getResume();
+        resume.setUuid(fileName);
+    }
+
+    public String getResumeName() {
+        Resume resume = employeeRepository.findByUsername(userDetailsService.getCurrentUser().getUsername()).getResume();
+        if (resume != null)
+            return resume.getUuid();
+        throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "you.have.not.resume");
+    }
+
+    /**
+     * kole job haye employer ro migire va age sahebe in resume hadeaqal bara yeki az on
+     * job ha resume ferestade bashe onvaqt employer mitone resume ro bebine
+     */
+    public String getResumeName(long id) {
+        Optional<Resume> optionalResume = resumeRepository.findById(id);
+        Resume resume;
+        if (optionalResume.isEmpty())
+            throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "resume.not.found");
+        resume = optionalResume.get();
+        Set<Job> employerJobs = employerRepository.findByUsername(userDetailsService.getCurrentUser().getUsername()).getJobs();
+        if (employeeJobRepository.findAllById_Employee(resume.getEmployee())
+                .removeIf(employeeJobs -> employerJobs.contains(employeeJobs.getId().getJob())))
+            return resume.getUuid();
+        throw new ResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, "this.resume.was.not.sent.to.you");
+    }
 }
