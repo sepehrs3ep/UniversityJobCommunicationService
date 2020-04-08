@@ -4,7 +4,7 @@ import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
 import ir.khu.jaobshaar.entity.model.Employee;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.entity.model.Job;
-import ir.khu.jaobshaar.service.dto.user.ForgetPasswordDTO;
+import ir.khu.jaobshaar.service.dto.user.ChangePasswordDTO;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
@@ -68,10 +68,14 @@ public class ValidationUtils {
 
     }
 
-    public static void validNewPasswords(ForgetPasswordDTO forgetPasswordDTO, String oldPass, PasswordEncoder passwordEncoder) {
-        if (passwordEncoder.matches(forgetPasswordDTO.getNewPass(), oldPass))
-            throw new ResponseException(ErrorCodes.ERROR_CODE_TAKEN_PASSWORD_BEFORE, "this.is.your.old.password");
-        if (!forgetPasswordDTO.getNewPass().equals(forgetPasswordDTO.getRepeatNewPass()))
+    // valid both changePassword and forgetPassword
+    public static void validNewPasswords(ChangePasswordDTO changePasswordDTO, String oldPass, PasswordEncoder passwordEncoder) {
+        if (changePasswordDTO.getOldPass() != null && !passwordEncoder.matches(changePasswordDTO.getOldPass(), oldPass))
+            throw new ResponseException(ErrorCodes.ERROR_CODE_INVALID_OLD_PASS, "old.pass.is.wrong");
+        if (passwordEncoder.matches(changePasswordDTO.getNewPass(), oldPass))
+            throw new ResponseException(ErrorCodes.ERROR_CODE_TAKEN_PASSWORD_BEFORE, "this.is.use.before");
+        if (!changePasswordDTO.getNewPass().equals(changePasswordDTO.getRepeatNewPass()))
             throw new ResponseException(ErrorCodes.ERROR_CODE_INPUT_PASSWORDS_NOT_MATCH, "these.password.not.match");
+
     }
 }

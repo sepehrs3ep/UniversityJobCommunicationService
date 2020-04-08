@@ -5,7 +5,7 @@ import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
 import ir.khu.jaobshaar.entity.model.User;
 import ir.khu.jaobshaar.repository.UserRepository;
 import ir.khu.jaobshaar.service.domain.UserDomain;
-import ir.khu.jaobshaar.service.dto.user.ForgetPasswordDTO;
+import ir.khu.jaobshaar.service.dto.user.ChangePasswordDTO;
 import ir.khu.jaobshaar.service.mapper.UserMapper;
 import ir.khu.jaobshaar.utils.EmailService;
 import ir.khu.jaobshaar.utils.ThreadUtil;
@@ -43,7 +43,7 @@ public class UserManager {
     }
 
     public void forgetPassWord(String email) {
-        final String forgetPasswordPageUrl = "Http://Localhost:9090/account/forgot-password?key=CYchc426)uUicucx";
+        final String forgetPasswordPageUrl = "Http://Localhost:9090/account/forgot-password?key=";
         User user = userRepository.findUserByEmail(email);
         if (user == null)
             throw new ResponseException(ErrorCodes.ERROR_CODE_EMAIL_NOT_EXIST, "email.not.exist");
@@ -52,17 +52,17 @@ public class UserManager {
             try {
                 emailService.sendEmailWithLink(user.getEmail(), "change password",
                         "dear " + user.getUsername() + "<br>" + " please check this url out to change password",
-                        forgetPasswordPageUrl + "?key=" + token);
+                        forgetPasswordPageUrl + token);
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
         });
     }
 
-    public void resetPassword(ForgetPasswordDTO forgetPasswordDTO) {
+    public void resetPassword(ChangePasswordDTO changePasswordDTO) {
         User currentUser = jwtUserDetailsService.getCurrentUser();
-        ValidationUtils.validNewPasswords(forgetPasswordDTO, currentUser.getPassword(), passwordEncoder);
-        currentUser.setPassword(passwordEncoder.encode(forgetPasswordDTO.getNewPass()));
+        ValidationUtils.validNewPasswords(changePasswordDTO, currentUser.getPassword(), passwordEncoder);
+        currentUser.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPass()));
         userRepository.save(currentUser);
     }
 }

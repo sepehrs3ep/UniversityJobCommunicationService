@@ -1,7 +1,7 @@
 package ir.khu.jaobshaar.service.user;
 
 import ir.khu.jaobshaar.component.user.UserManager;
-import ir.khu.jaobshaar.service.dto.user.ForgetPasswordDTO;
+import ir.khu.jaobshaar.service.dto.user.ChangePasswordDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +28,14 @@ public class AccountController {
     }
 
     @PutMapping("/reset-password")
-    public ResponseEntity<?> forgetPassword(ForgetPasswordDTO forgetPasswordDTO){
-        userManager.resetPassword(forgetPasswordDTO);
+    public ResponseEntity<?> resetPassword(ChangePasswordDTO changePasswordDTO){
+        userManager.resetPassword(changePasswordDTO);
+        return ResponseEntity.ok("ok");
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(ChangePasswordDTO changePasswordDTO){
+        userManager.resetPassword(changePasswordDTO);
         return ResponseEntity.ok("ok");
     }
 }

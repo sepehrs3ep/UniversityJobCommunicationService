@@ -1,8 +1,17 @@
 package ir.khu.jaobshaar.service.dto.user;
 
-public class ForgetPasswordDTO {
+public class ChangePasswordDTO {
+    private String oldPass;
     private String newPass;
     private String repeatNewPass;
+
+    public String getOldPass() {
+        return oldPass;
+    }
+
+    public void setOldPass(String oldPass) {
+        this.oldPass = oldPass;
+    }
 
     public String getNewPass() {
         return newPass;

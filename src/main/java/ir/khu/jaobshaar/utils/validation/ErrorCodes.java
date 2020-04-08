@@ -22,4 +22,5 @@ public class ErrorCodes {
     public static final int ERROR_CODE_EMAIL_NOT_EXIST = 618;
     public static final int ERROR_CODE_TAKEN_PASSWORD_BEFORE = 619;
     public static final int ERROR_CODE_INPUT_PASSWORDS_NOT_MATCH = 620;
+    public static final int ERROR_CODE_INVALID_OLD_PASS = 621;
 }
