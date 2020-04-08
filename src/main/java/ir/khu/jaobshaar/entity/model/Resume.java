@@ -11,11 +11,11 @@ public class Resume extends EntityBase {
     @Column(unique = true)
     private String url;
 
+    @Column(name = "resume_uuid", unique = true)
+    private String uuid;
+
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "resume", cascade = CascadeType.ALL)
     private Employee employee;
-
-    public Resume() {
-    }
 
     @Override
     public String toString() {
@@ -39,5 +39,13 @@ public class Resume extends EntityBase {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

@@ -18,5 +18,6 @@ public class ErrorCodes {
     public static final int ERROR_CODE_RESUME_IS_NOT_EXIST = 614;
     public static final int ERROR_CODE_RESUME_URL_ALREADY_EXIST = 615;
     public static final int ERROR_CODE_JOB_NOT_FOUND = 616;
-    public static final int ERROR_CODE_REQUIRED_GENDER_NOT_ACCESS=617;
+    public static final int ERROR_CODE_REQUIRED_GENDER_NOT_ACCESS = 617;
+    public static final int ERROR_CODE_MALFORMED_URL_EXCEPTION = 618;
 }
