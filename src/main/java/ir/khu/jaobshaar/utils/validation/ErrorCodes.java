@@ -1,6 +1,10 @@
 package ir.khu.jaobshaar.utils.validation;
 
 public class ErrorCodes {
+	public static final int ERROR_CODE_EMAIL_NOT_EXIST = 618;
+	public static final int ERROR_CODE_TAKEN_PASSWORD_BEFORE = 619;
+	public static final int ERROR_CODE_INPUT_PASSWORDS_NOT_MATCH = 620;
+	public static final int ERROR_CODE_INVALID_OLD_PASS = 621;
 	public static final int ERROR_CODE_INVALID_USER_NAME = 600;
 	public static final int ERROR_CODE_INVALID_PASSWORD = 601;
 	public static final int ERROR_CODE_INVALID_EMAIL = 602;
@@ -19,9 +23,6 @@ public class ErrorCodes {
 	public static final int ERROR_CODE_RESUME_URL_ALREADY_EXIST = 615;
 	public static final int ERROR_CODE_JOB_NOT_FOUND = 616;
 	public static final int ERROR_CODE_REQUIRED_GENDER_NOT_ACCESS = 617;
-	public static final int ERROR_CODE_EMAIL_NOT_EXIST = 618;
-	public static final int ERROR_CODE_TAKEN_PASSWORD_BEFORE = 619;
-	public static final int ERROR_CODE_INPUT_PASSWORDS_NOT_MATCH = 620;
-	public static final int ERROR_CODE_INVALID_OLD_PASS = 621;
 	public static final int ERROR_CODE_MALFORMED_URL_EXCEPTION = 618;
+	public static final int ERROR_CODE_CANT_CREATE_DIRECTORY = 619;
 }

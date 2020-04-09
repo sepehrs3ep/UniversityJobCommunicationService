@@ -8,6 +8,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -20,6 +21,15 @@ public class FileStorageService {
 
     @Value("${file.upload-dir}")
     private Path fileStorageLocation;
+
+    static {
+        try {
+            Files.createDirectories(Path.of("resume")
+                    .toAbsolutePath().normalize());
+        } catch (Exception ex) {
+            throw new ResponseException(ErrorCodes.ERROR_CODE_CANT_CREATE_DIRECTORY, "Could not create the directory where the uploaded files will be stored.");
+        }
+    }
 
     public String storeFile(MultipartFile file) {
         try {
@@ -49,10 +59,18 @@ public class FileStorageService {
             if (resource.exists()) {
                 return resource;
             } else {
-                throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "resume.not.find");
+                throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "resume.not.found");
             }
         } catch (MalformedURLException ex) {
             throw new ResponseException(ErrorCodes.ERROR_CODE_MALFORMED_URL_EXCEPTION, "");
+        }
+    }
+
+    public void deleteFile(String fileName) {
+        try {
+            loadFileAsResource(fileName).getFile().delete();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
