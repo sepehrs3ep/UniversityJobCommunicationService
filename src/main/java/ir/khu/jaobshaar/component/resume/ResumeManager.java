@@ -12,6 +12,7 @@ import ir.khu.jaobshaar.repository.EmployerRepository;
 import ir.khu.jaobshaar.repository.ResumeRepository;
 import ir.khu.jaobshaar.service.dto.ResumeDTO;
 import ir.khu.jaobshaar.service.mapper.ResumeMapper;
+import ir.khu.jaobshaar.utils.FileStorageService;
 import ir.khu.jaobshaar.utils.ValidationUtils;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
@@ -29,16 +30,18 @@ public class ResumeManager {
     private final ResumeMapper resumeMapper;
     private final EmployeeJobRepository employeeJobRepository;
     private final EmployerRepository employerRepository;
+    private final FileStorageService fileStorageService;
 
     public ResumeManager(JwtUserDetailsService userDetailsService, ResumeRepository resumeRepository,
                          EmployeeRepository employeeRepository, ResumeMapper resumeMapper,
-                         EmployeeJobRepository employeeJobRepository, EmployerRepository employerRepository) {
+                         EmployeeJobRepository employeeJobRepository, EmployerRepository employerRepository, FileStorageService fileStorageService) {
         this.userDetailsService = userDetailsService;
         this.resumeRepository = resumeRepository;
         this.employeeRepository = employeeRepository;
         this.resumeMapper = resumeMapper;
         this.employeeJobRepository = employeeJobRepository;
         this.employerRepository = employerRepository;
+        this.fileStorageService = fileStorageService;
     }
 
     @Transactional
@@ -103,11 +106,14 @@ public class ResumeManager {
     public void addResume(String fileName) {
         Employee employee = employeeRepository.findByUsername(userDetailsService.getCurrentUser().getUsername());
 
-        if (employee == null)
+        if (employee == null) {
+            fileStorageService.deleteFile(fileName + ".pdf");
             throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, " Employer can't add resume");
-        if (employee.getResume() != null)
+        }
+        if (employee.getResume().getUuid() != null) {
+            fileStorageService.deleteFile(fileName + ".pdf");
             throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_ALREADY_EXIST, "you.have.resume");
-
+        }
         Resume resume = new Resume();
         resume.setUuid(fileName);
         resume.setEmployee(employee);
@@ -118,8 +124,14 @@ public class ResumeManager {
     @Transactional
     public void updateResume(String fileName) {
         Employee employee = employeeRepository.findByUsername(userDetailsService.getCurrentUser().getUsername());
-        if (employee == null)
+        if (employee == null) {
+            fileStorageService.deleteFile(fileName + ".pdf");
             throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, " Employer can't add resume");
+        }
+        if (employee.getResume().getUuid() == null) {
+            fileStorageService.deleteFile(fileName + ".pdf");
+            throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST,"you.have.noting.to.update");
+        }
         Resume resume = employee.getResume();
         resume.setUuid(fileName);
     }

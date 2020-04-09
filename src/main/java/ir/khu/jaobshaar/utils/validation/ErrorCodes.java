@@ -20,4 +20,5 @@ public class ErrorCodes {
     public static final int ERROR_CODE_JOB_NOT_FOUND = 616;
     public static final int ERROR_CODE_REQUIRED_GENDER_NOT_ACCESS = 617;
     public static final int ERROR_CODE_MALFORMED_URL_EXCEPTION = 618;
+    public static final int ERROR_CODE_CANT_CREATE_DIRECTORY = 619;
 }
