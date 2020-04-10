@@ -43,7 +43,7 @@ public class UserManager {
     }
 
     public void forgetPassWord(String email) {
-        final String forgetPasswordPageUrl = "Http://188.40.195.134:8081/account/forgot-password?key=";
+        final String forgetPasswordPageUrl = "Http://188.40.195.134:8081/account/reset-password?key=";
         User user = userRepository.findUserByEmail(email);
         if (user == null)
             throw new ResponseException(ErrorCodes.ERROR_CODE_EMAIL_NOT_EXIST, "email.not.exist");
