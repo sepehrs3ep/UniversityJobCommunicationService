@@ -21,7 +21,7 @@ public class AccountController {
         return ResponseEntity.ok(userManager.getCurrentUser());
     }
 
-    @PostMapping
+    @PostMapping("/forget-password")
     public ResponseEntity<?> forgetPassword(String email){
         userManager.forgetPassWord(email);
         return ResponseEntity.ok("ok");
