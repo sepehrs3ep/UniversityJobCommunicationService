@@ -47,7 +47,7 @@ public class EmailService {
         mimeMessageHelper.setTo(to);
         mimeMessageHelper.setSubject(subject);
 
-        String html = text+"\n" + "\n<a href=\'"+url+"\'>"+url+"</a>";
+        String html = text+"<br>" + "<a href=\'"+url+"\'>"+url+"</a>";
         mimeMessage.setText(html, "UTF-8", "html");
 
         javaMailSender.send(mimeMessage);

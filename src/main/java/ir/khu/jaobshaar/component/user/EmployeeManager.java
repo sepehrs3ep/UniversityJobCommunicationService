@@ -131,7 +131,7 @@ public class EmployeeManager {
             ThreadUtil.createThreadAndStart(()->{
                 try {
                     emailService.sendEmailWithLink(job.getEmployer().getEmail(), job.getTitle(),
-                            "hi " + job.getEmployer().getUsername() + "\n someone send resume for your job please check the blew url resume", employee.getResume().getUrl());
+                            "dear " + job.getEmployer().getUsername() + "<br>"+" someone send resume for your job please check the blew url resume", employee.getResume().getUrl());
                     System.out.println("send");
                 } catch (MessagingException e) {
                     e.printStackTrace();

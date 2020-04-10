@@ -74,12 +74,6 @@ public class JobManager {
     }
 
     public JobDomain getJobById(long id) {
-        final User currentUser = userDetailsService.getCurrentUser();
-
-        if (currentUser.getRoleTypeIndex() == PersonRuleType.EMPLOYER) {
-            throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, " ERROR_CODE_ACCESS_NOT_PERMITTED this is only for employee ");
-        }
-
         final Optional<Job> job = jobRepository.findById(id);
 
         if (job.isEmpty()) {
@@ -108,10 +102,18 @@ public class JobManager {
             return resumeMapper.toDomainList(employeeJobRepository.findAllById_Job(job.get()).stream().map(EmployeeJobs::getId)
                     .map(EmployeeJobsId::getEmployee).map(Employee::getResume).collect(Collectors.toList()));
         }
-        throw new ResponseException(ErrorCodes.ERROR_CODE_INVALID_JOB_FIELD,"can't.find.job");
+        throw new ResponseException(ErrorCodes.ERROR_CODE_INVALID_JOB_FIELD, "can't.find.job");
     }
 
-    public Job findJobById(Long id){
+    public Job findJobById(Long id) {
         return jobRepository.findJobById(id);
+    }
+
+    public List<JobDomain> findSameJobs(long id) {
+        JobDomain jobDomain = getJobById(id);
+        return jobRepository.findAll().stream()
+                .filter(job -> job.getCategoryTypeIndex().toKey().equals(jobDomain.getCategoryTypeIndex())
+                        & job.getCooperationTypeIndex().toKey().equals(jobDomain.getCooperationTypeIndex()))
+                .map(jobMapper::toDomain).collect(Collectors.toList());
     }
 }
