@@ -20,27 +20,27 @@ import javax.mail.MessagingException;
 @Service
 public class UserManager {
 
-    private final UserMapper userMapper;
-    private final UserRepository userRepository;
-    private final EmailService emailService;
-    private final JwtTokenUtil jwtTokenUtil;
-    private final PasswordEncoder passwordEncoder;
-    private JwtUserDetailsService jwtUserDetailsService;
+	private final UserMapper userMapper;
+	private final UserRepository userRepository;
+	private final EmailService emailService;
+	private final JwtTokenUtil jwtTokenUtil;
+	private final PasswordEncoder passwordEncoder;
+	private JwtUserDetailsService jwtUserDetailsService;
 
-    public UserManager(JwtUserDetailsService jwtUserDetailsService, UserMapper userMapper,
-                       UserRepository userRepository, EmailService emailService, JwtTokenUtil jwtTokenUtil, PasswordEncoder passwordEncoder
-    ) {
-        this.jwtUserDetailsService = jwtUserDetailsService;
-        this.userMapper = userMapper;
-        this.userRepository = userRepository;
-        this.emailService = emailService;
-        this.jwtTokenUtil = jwtTokenUtil;
-        this.passwordEncoder = passwordEncoder;
-    }
+	public UserManager(JwtUserDetailsService jwtUserDetailsService, UserMapper userMapper,
+			UserRepository userRepository, EmailService emailService, JwtTokenUtil jwtTokenUtil,
+			PasswordEncoder passwordEncoder) {
+		this.jwtUserDetailsService = jwtUserDetailsService;
+		this.userMapper = userMapper;
+		this.userRepository = userRepository;
+		this.emailService = emailService;
+		this.jwtTokenUtil = jwtTokenUtil;
+		this.passwordEncoder = passwordEncoder;
+	}
 
-    public UserDomain getCurrentUser() {
-        return userMapper.toDomain(jwtUserDetailsService.getCurrentUser());
-    }
+	public UserDomain getCurrentUser() {
+		return userMapper.toDomain(jwtUserDetailsService.getCurrentUser());
+	}
 
     public void forgetPassWord(String username) {
         final String forgetPasswordPageUrl = "Http://188.40.195.134:8081/account/reset-password?key=";
@@ -59,10 +59,10 @@ public class UserManager {
         });
     }
 
-    public void resetPassword(ChangePasswordDTO changePasswordDTO) {
-        User currentUser = jwtUserDetailsService.getCurrentUser();
-        ValidationUtils.validNewPasswords(changePasswordDTO, currentUser.getPassword(), passwordEncoder);
-        currentUser.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPass()));
-        userRepository.save(currentUser);
-    }
+	public void resetPassword(ChangePasswordDTO changePasswordDTO) {
+		User currentUser = jwtUserDetailsService.getCurrentUser();
+		ValidationUtils.validNewPasswords(changePasswordDTO, currentUser.getPassword(), passwordEncoder);
+		currentUser.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPass()));
+		userRepository.save(currentUser);
+	}
 }
