@@ -72,8 +72,7 @@ public class JobFiltering {
                 predicates.add(getValueIn(cb, root,Job_.REQUIRED_GENDER_TYPE_INDEX,jobCriteria.getRequiredGenderTypeIndex().getIn()));
 
             if (jobCriteria.getRequiredGenderTypeIndex().getEquals() != null)
-                predicates.add(cb.equal(root.get(Job_.REQUIRED_GENDER_TYPE_INDEX), jobCriteria.getRequiredGenderTypeIndex().getEquals()
-                ));
+                predicates.add(cb.equal(root.get(Job_.REQUIRED_GENDER_TYPE_INDEX), jobCriteria.getRequiredGenderTypeIndex().getEquals()));
         }
 
 		/*if (jobCriteria.getFromDate() != null)
