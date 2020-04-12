@@ -34,7 +34,7 @@ public class FileStorageService {
     public String storeFile(MultipartFile file) {
         try {
             String fileName = UUID.randomUUID().toString();
-            Path targetLocation = this.fileStorageLocation.resolve(fileName + ".pdf");
+            Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
         } catch (IOException e) {
@@ -54,7 +54,7 @@ public class FileStorageService {
 
     public Resource loadFileAsResource(String fileName) {
         try {
-            Path filePath = this.fileStorageLocation.resolve(fileName + ".pdf");
+            Path filePath = this.fileStorageLocation.resolve(fileName);
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists()) {
                 return resource;

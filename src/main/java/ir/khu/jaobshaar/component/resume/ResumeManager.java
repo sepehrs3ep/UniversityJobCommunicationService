@@ -107,11 +107,11 @@ public class ResumeManager {
         Employee employee = employeeRepository.findByUsername(userDetailsService.getCurrentUser().getUsername());
 
         if (employee == null) {
-            fileStorageService.deleteFile(fileName + ".pdf");
+            fileStorageService.deleteFile(fileName);
             throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, " Employer can't add resume");
         }
         if (employee.getResume().getUuid() != null) {
-            fileStorageService.deleteFile(fileName + ".pdf");
+            fileStorageService.deleteFile(fileName);
             throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_ALREADY_EXIST, "you.have.resume");
         }
         Resume resume = new Resume();
@@ -125,11 +125,11 @@ public class ResumeManager {
     public void updateResume(String fileName) {
         Employee employee = employeeRepository.findByUsername(userDetailsService.getCurrentUser().getUsername());
         if (employee == null) {
-            fileStorageService.deleteFile(fileName + ".pdf");
+            fileStorageService.deleteFile(fileName);
             throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, " Employer can't add resume");
         }
         if (employee.getResume().getUuid() == null) {
-            fileStorageService.deleteFile(fileName + ".pdf");
+            fileStorageService.deleteFile(fileName);
             throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST,"you.have.noting.to.update");
         }
         Resume resume = employee.getResume();
