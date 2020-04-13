@@ -130,7 +130,7 @@ public class ResumeManager {
         }
         if (employee.getResume().getUuid() == null) {
             fileStorageService.deleteFile(fileName);
-            throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST,"you.have.noting.to.update");
+            throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "you.have.noting.to.update");
         }
         Resume resume = employee.getResume();
         fileStorageService.deleteFile(resume.getUuid());
@@ -139,7 +139,7 @@ public class ResumeManager {
 
     public String getResumeName() {
         Resume resume = employeeRepository.findByUsername(userDetailsService.getCurrentUser().getUsername()).getResume();
-        if (resume != null)
+        if (resume != null && resume.getUuid() != null)
             return resume.getUuid();
         throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "you.have.not.resume");
     }
@@ -157,7 +157,10 @@ public class ResumeManager {
         Set<Job> employerJobs = employerRepository.findByUsername(userDetailsService.getCurrentUser().getUsername()).getJobs();
         if (employeeJobRepository.findAllById_Employee(resume.getEmployee())
                 .removeIf(employeeJobs -> employerJobs.contains(employeeJobs.getId().getJob())))
-            return resume.getUuid();
+            if (resume.getUuid() != null)
+                return resume.getUuid();
+            else
+                throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "resume.file.not.found");
         throw new ResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, "this.resume.was.not.sent.to.you");
     }
 }
