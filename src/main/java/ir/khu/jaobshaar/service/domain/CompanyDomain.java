@@ -10,15 +10,14 @@ public class CompanyDomain extends DomainBase {
 
     private String address;
 
-    public CompanyDomain(Long id, String name, Integer categoryTypeIndex, String bio, String address) {
-        this.setId(id);
-        this.name = name;
-        this.categoryTypeIndex = categoryTypeIndex;
-        this.bio = bio;
-        this.address = address;
+    private String logoDataUrl;
+
+    public String getLogoDataUrl() {
+        return logoDataUrl;
     }
 
-    public CompanyDomain() {
+    public void setLogoDataUrl(String logoDataUrl) {
+        this.logoDataUrl = logoDataUrl;
     }
 
     public String getName() {

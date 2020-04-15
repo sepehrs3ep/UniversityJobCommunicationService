@@ -25,6 +25,17 @@ public class Company extends EntityBase {
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "company", cascade = CascadeType.ALL)
     private Employer employer;
 
+    @Column(name = "company_logo", columnDefinition = "MEDIUMTEXT")
+    private String logoDataUrl;
+
+    public String getLogoDataUrl() {
+        return logoDataUrl;
+    }
+
+    public void setLogoDataUrl(String logoDataUrl) {
+        this.logoDataUrl = logoDataUrl;
+    }
+
     public String getName() {
         return name;
     }

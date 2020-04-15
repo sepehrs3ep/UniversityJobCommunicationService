@@ -12,15 +12,14 @@ public class CompanyDTO extends DTOBase {
 
     private String address;
 
+    private String logoDataUrl;
 
-    public CompanyDTO(String name, Integer categoryTypeIndex, String bio, String address) {
-        this.name = name;
-        this.categoryTypeIndex = categoryTypeIndex;
-        this.bio = bio;
-        this.address = address;
+    public String getLogoDataUrl() {
+        return logoDataUrl;
     }
 
-    public CompanyDTO() {
+    public void setLogoDataUrl(String logoDataUrl) {
+        this.logoDataUrl = logoDataUrl;
     }
 
     public String getName() {
