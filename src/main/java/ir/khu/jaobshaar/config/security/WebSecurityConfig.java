@@ -91,7 +91,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/employee/login",
                 "/api/employer/register",
                 "/api/employer/login",
-                "/account/login", "/", "/**", "/assets/scss/**", "/assets/fonts/**", "/assets/images/**","api/account/forget-password"
+                "/account/login",
+                "/",
+                "/**",
+                "/assets/scss/**",
+                "/assets/fonts/**",
+                "/assets/images/**",
+                "api/account/forget-password",
+                "api/configs/error-codes-translator"
         ).permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and()
