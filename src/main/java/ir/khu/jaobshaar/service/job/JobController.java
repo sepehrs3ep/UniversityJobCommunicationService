@@ -50,7 +50,7 @@ public class JobController {
     }
 
     @GetMapping("/same-jobs")
-    public ResponseEntity<List<JobDomain>> getSameJobs(@RequestParam long id){
+    public ResponseEntity<List<JobDomain>> getSameJobs(@RequestParam long id) {
         return ResponseEntity.ok(jobManager.findSameJobs(id));
     }
 }

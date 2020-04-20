@@ -39,12 +39,12 @@ public class EmployerController {
     }
 
     @GetMapping("/resume")
-    public ResponseEntity<List<ResumeDomain>> getResumeOfJobs(@RequestParam Long jobId){
+    public ResponseEntity<List<ResumeDomain>> getResumeOfJobs(@RequestParam Long jobId) {
         return ResponseEntity.ok().body(jobManager.getJobResume(jobId));
     }
 
     @GetMapping
-    public ResponseEntity<JobDomain> getOneJob(@RequestParam long id){
+    public ResponseEntity<JobDomain> getOneJob(@RequestParam long id) {
         return ResponseEntity.ok(employerManager.getOne(id));
     }
 }

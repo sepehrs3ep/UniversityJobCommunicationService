@@ -55,21 +55,21 @@ public class JobFiltering {
         }
         if (jobCriteria.getCategoryTypeIndex() != null) {
             if (jobCriteria.getCategoryTypeIndex().getIn() != null) {
-                predicates.add(getValueIn(cb, root,Job_.CATEGORY_TYPE_INDEX,jobCriteria.getCategoryTypeIndex().getIn()));
+                predicates.add(getValueIn(cb, root, Job_.CATEGORY_TYPE_INDEX, jobCriteria.getCategoryTypeIndex().getIn()));
             }
             if (jobCriteria.getCategoryTypeIndex().getEquals() != null)
                 predicates.add(cb.equal(root.get(Job_.CATEGORY_TYPE_INDEX), jobCriteria.getCategoryTypeIndex().getEquals()));
         }
         if (jobCriteria.getCooperationTypeIndex() != null) {
             if (jobCriteria.getCooperationTypeIndex().getIn() != null)
-                predicates.add(getValueIn(cb, root,Job_.COOPERATION_TYPE_INDEX,jobCriteria.getCooperationTypeIndex().getIn()));
+                predicates.add(getValueIn(cb, root, Job_.COOPERATION_TYPE_INDEX, jobCriteria.getCooperationTypeIndex().getIn()));
 
             if (jobCriteria.getCooperationTypeIndex().getEquals() != null)
                 predicates.add(cb.equal(root.get(Job_.COOPERATION_TYPE_INDEX), jobCriteria.getCooperationTypeIndex().getEquals()));
         }
         if (jobCriteria.getRequiredGenderTypeIndex() != null) {
             if (jobCriteria.getRequiredGenderTypeIndex().getIn() != null)
-                predicates.add(getValueIn(cb, root,Job_.REQUIRED_GENDER_TYPE_INDEX,jobCriteria.getRequiredGenderTypeIndex().getIn()));
+                predicates.add(getValueIn(cb, root, Job_.REQUIRED_GENDER_TYPE_INDEX, jobCriteria.getRequiredGenderTypeIndex().getIn()));
 
             if (jobCriteria.getRequiredGenderTypeIndex().getEquals() != null)
                 predicates.add(cb.equal(root.get(Job_.REQUIRED_GENDER_TYPE_INDEX), jobCriteria.getRequiredGenderTypeIndex().getEquals()));

@@ -8,9 +8,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN, uses = PersonRuleTypeConverter.class)
-public abstract class UserMapper implements EntityMapperBase<UserDTO, UserDomain, User> {
+public interface UserMapper extends EntityMapperBase<UserDTO, UserDomain, User> {
     @Override
-    public User createNew() {
+    default User createNew() {
         return new User();
     }
 
