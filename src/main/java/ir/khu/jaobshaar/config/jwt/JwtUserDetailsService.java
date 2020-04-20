@@ -5,6 +5,7 @@ import ir.khu.jaobshaar.repository.UserRepository;
 import ir.khu.jaobshaar.utils.SecurityUtils;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,13 +18,10 @@ import java.util.Optional;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
-    private final PasswordEncoder bcryptEncoder;
-    private final UserRepository userDao;
-
-    public JwtUserDetailsService(PasswordEncoder bcryptEncoder, UserRepository userDao) {
-        this.bcryptEncoder = bcryptEncoder;
-        this.userDao = userDao;
-    }
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
+    @Autowired
+    private UserRepository userDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

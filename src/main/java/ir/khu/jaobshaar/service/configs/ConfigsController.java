@@ -3,8 +3,12 @@ package ir.khu.jaobshaar.service.configs;
 import ir.khu.jaobshaar.component.configs.ConfigsManager;
 import ir.khu.jaobshaar.service.domain.ErrorCodesDomain;
 import ir.khu.jaobshaar.service.dto.ErrorCodesTranslatorDTO;
+import ir.khu.jaobshaar.service.dto.SubEnumDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -22,4 +26,8 @@ public class ConfigsController {
         return ResponseEntity.ok(configsManager.getErrorCodesTranslator(errorCodesTranslatorDTO));
     }
 
+    @GetMapping("/enums")
+    public ResponseEntity<Map<String, List<SubEnumDTO>>> getEnums() {
+        return ResponseEntity.ok(configsManager.getEnums());
+    }
 }
