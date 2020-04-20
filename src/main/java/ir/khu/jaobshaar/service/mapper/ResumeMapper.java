@@ -16,7 +16,7 @@ public abstract class ResumeMapper implements EntityMapperBase<ResumeDTO, Resume
     }
 
     @AfterMapping
-    void setEmail (@MappingTarget ResumeDomain domain,Resume resume){
+    void setEmail(@MappingTarget ResumeDomain domain, Resume resume) {
         domain.setEmail(resume.getEmployee().getEmail());
     }
 }

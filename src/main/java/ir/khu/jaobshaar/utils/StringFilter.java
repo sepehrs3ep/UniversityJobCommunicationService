@@ -1,8 +1,8 @@
 package ir.khu.jaobshaar.utils;
 
 public class StringFilter extends Filter<String> {
-    private String contains;
 
+    private String contains;
     private String startWith;
 
     public String getContains() {

@@ -4,7 +4,10 @@ import ir.khu.jaobshaar.component.job.JobManager;
 import ir.khu.jaobshaar.constants.StudentsMockData;
 import ir.khu.jaobshaar.entity.enums.PersonRuleType;
 import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
-import ir.khu.jaobshaar.entity.model.*;
+import ir.khu.jaobshaar.entity.model.Employee;
+import ir.khu.jaobshaar.entity.model.EmployeeJobs;
+import ir.khu.jaobshaar.entity.model.EmployeeJobsId;
+import ir.khu.jaobshaar.entity.model.Job;
 import ir.khu.jaobshaar.repository.EmployeeJobRepository;
 import ir.khu.jaobshaar.repository.EmployeeRepository;
 import ir.khu.jaobshaar.repository.JobRepository;
@@ -24,11 +27,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 @Service
@@ -128,10 +128,10 @@ public class EmployeeManager {
             } else
                 throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "first.upload.resume.url");
 
-            ThreadUtil.createThreadAndStart(()->{
+            ThreadUtil.createThreadAndStart(() -> {
                 try {
                     emailService.sendEmailWithLink(job.getEmployer().getEmail(), job.getTitle(),
-                            "dear " + job.getEmployer().getUsername() + "<br>"+" someone send resume for your job please check the blew url resume", employee.getResume().getUrl());
+                            "dear " + job.getEmployer().getUsername() + "<br>" + " someone send resume for your job please check the blew url resume", employee.getResume().getUrl());
                     System.out.println("send");
                 } catch (MessagingException e) {
                     e.printStackTrace();
@@ -153,11 +153,11 @@ public class EmployeeManager {
         return resumeMapper.toDomain(employeeRepository.findByUsername(userManager.getCurrentUser().getUsername()).getResume());
     }
 
-    public Boolean isApplied(long jobId){
-        List<EmployeeJobs> employeeJobs=employeeJobRepository.findAllById_Job(jobRepository.getOne(jobId));
-        UserDomain user=userManager.getCurrentUser();
-        Boolean isApplied =false;
-        for (EmployeeJobs em:employeeJobs) {
+    public Boolean isApplied(long jobId) {
+        List<EmployeeJobs> employeeJobs = employeeJobRepository.findAllById_Job(jobRepository.getOne(jobId));
+        UserDomain user = userManager.getCurrentUser();
+        Boolean isApplied = false;
+        for (EmployeeJobs em : employeeJobs) {
             if (em.getId().getEmployee().getId().equals(user.getId())) {
                 isApplied = true;
                 break;
