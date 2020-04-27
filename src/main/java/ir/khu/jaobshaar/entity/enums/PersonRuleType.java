@@ -19,4 +19,9 @@ public enum PersonRuleType implements EnumProviderKey<Integer> {
     public Integer toKey() {
         return key;
     }
+
+    @Override
+    public String getName() {
+        return this.name();
+    }
 }
