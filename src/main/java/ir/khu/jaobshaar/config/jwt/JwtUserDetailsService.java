@@ -19,10 +19,9 @@ import java.util.Optional;
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userDao;
-
-    @Autowired
     private PasswordEncoder bcryptEncoder;
+    @Autowired
+    private UserRepository userDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

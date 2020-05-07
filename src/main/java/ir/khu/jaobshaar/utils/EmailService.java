@@ -17,8 +17,8 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendEmail(String to,String subject,String text){
-        SimpleMailMessage mailMessage=new SimpleMailMessage();
+    public void sendEmail(String to, String subject, String text) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(to);
         mailMessage.setSubject(subject);
         mailMessage.setText(text);
@@ -26,28 +26,28 @@ public class EmailService {
         javaMailSender.send(mailMessage);
     }
 
-    public void sendEmailWithAttachment(String to,String subject,String text,String url) throws MessagingException {
-        MimeMessage mimeMessage=javaMailSender.createMimeMessage();
+    public void sendEmailWithAttachment(String to, String subject, String text, String url) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
-        MimeMessageHelper mimeMessageHelper= new MimeMessageHelper(mimeMessage,true);
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
         mimeMessageHelper.setTo(to);
         mimeMessageHelper.setSubject(subject);
         mimeMessageHelper.setText(text);
 
-        ClassPathResource classPathResource= new ClassPathResource(url);
-        mimeMessageHelper.addAttachment(classPathResource.getFilename(),classPathResource);
+        ClassPathResource classPathResource = new ClassPathResource(url);
+        mimeMessageHelper.addAttachment(classPathResource.getFilename(), classPathResource);
 
         javaMailSender.send(mimeMessage);
     }
 
-    public void sendEmailWithLink(String to,String subject,String text,String url) throws  MessagingException {
-        MimeMessage mimeMessage=javaMailSender.createMimeMessage();
+    public void sendEmailWithLink(String to, String subject, String text, String url) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
-        MimeMessageHelper mimeMessageHelper= new MimeMessageHelper(mimeMessage,true);
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
         mimeMessageHelper.setTo(to);
         mimeMessageHelper.setSubject(subject);
 
-        String html = text+"<br>" + "<a href=\'"+url+"\'>"+url+"</a>";
+        String html = text + "<br>" + "<a href=\'" + url + "\'>" + url + "</a>";
         mimeMessage.setText(html, "UTF-8", "html");
 
         javaMailSender.send(mimeMessage);

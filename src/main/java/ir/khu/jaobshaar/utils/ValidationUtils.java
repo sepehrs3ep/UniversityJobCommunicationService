@@ -64,7 +64,7 @@ public class ValidationUtils {
 
     public static void accessToGetResume(Employer employer, Job job) {
         if (!employer.getJobs().contains(job))
-            throw new ResponseException(ErrorCodes.ERROR_CODE_INVALID_JOB_FIELD, "this.id.isn't,in.user's.jobs");
+            throw new ResponseException(ErrorCodes.ERROR_CODE_JOB_NOT_FOUND, "this.id.isn't,in.user's.jobs");
 
     }
 

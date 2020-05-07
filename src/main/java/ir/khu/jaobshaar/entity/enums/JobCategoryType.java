@@ -22,4 +22,9 @@ public enum JobCategoryType implements EnumProviderKey<Integer> {
     public Integer toKey() {
         return key;
     }
+
+    @Override
+    public String getName() {
+        return this.name();
+    }
 }

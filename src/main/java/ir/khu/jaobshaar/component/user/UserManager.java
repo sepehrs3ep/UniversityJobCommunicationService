@@ -42,9 +42,9 @@ public class UserManager {
         return userMapper.toDomain(jwtUserDetailsService.getCurrentUser());
     }
 
-    public void forgetPassWord(String email) {
+    public void forgetPassWord(String username) {
         final String forgetPasswordPageUrl = "Http://188.40.195.134:8081/account/reset-password?key=";
-        User user = userRepository.findUserByEmail(email);
+        User user = userRepository.findByUsername(username);
         if (user == null)
             throw new ResponseException(ErrorCodes.ERROR_CODE_EMAIL_NOT_EXIST, "email.not.exist");
         final String token = jwtTokenUtil.generateToken(user);

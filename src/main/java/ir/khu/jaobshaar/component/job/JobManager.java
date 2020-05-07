@@ -102,7 +102,7 @@ public class JobManager {
             return resumeMapper.toDomainList(employeeJobRepository.findAllById_Job(job.get()).stream().map(EmployeeJobs::getId)
                     .map(EmployeeJobsId::getEmployee).map(Employee::getResume).collect(Collectors.toList()));
         }
-        throw new ResponseException(ErrorCodes.ERROR_CODE_INVALID_JOB_FIELD, "can't.find.job");
+        throw new ResponseException(ErrorCodes.ERROR_CODE_JOB_NOT_FOUND, "can't.find.job");
     }
 
     public Job findJobById(Long id) {

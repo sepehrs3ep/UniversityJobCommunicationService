@@ -22,19 +22,19 @@ public class AccountController {
     }
 
     @PostMapping("/forget-password")
-    public ResponseEntity<?> forgetPassword(String email){
-        userManager.forgetPassWord(email);
+    public ResponseEntity<?> forgetPassword(String username) {
+        userManager.forgetPassWord(username);
         return ResponseEntity.ok("ok");
     }
 
     @PutMapping("/reset-password")
-    public ResponseEntity<?> resetPassword(@RequestBody ChangePasswordDTO changePasswordDTO){
+    public ResponseEntity<?> resetPassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
         userManager.resetPassword(changePasswordDTO);
         return ResponseEntity.ok("ok");
     }
 
     @PutMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO){
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
         userManager.resetPassword(changePasswordDTO);
         return ResponseEntity.ok("ok");
     }
