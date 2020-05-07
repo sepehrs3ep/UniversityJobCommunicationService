@@ -5,11 +5,16 @@ import ir.khu.jaobshaar.entity.model.Company;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.repository.CompanyRepository;
 import ir.khu.jaobshaar.repository.EmployerRepository;
+import ir.khu.jaobshaar.service.domain.CompanyDomain;
 import ir.khu.jaobshaar.service.dto.employer.CompanyDTO;
 import ir.khu.jaobshaar.service.mapper.CompanyMapper;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CompanyManager {
@@ -70,5 +75,28 @@ public class CompanyManager {
         company.setEmployer(currentEmployer);
 
         companyRepository.save(company);
+    }
+
+    @Transactional
+    public void updateCompany(CompanyDTO companyDTO) {
+        Employer employer = employerRepository.findByUsername(userDetailsService.getCurrentUser().getUsername());
+        if (employer == null)
+            throw new ResponseException(ErrorCodes.ERROR_CODE_NOT_ALLOW, "only.employer.can.update.company");
+
+        if (employer.getCompany().getId() != (companyDTO.getId()))
+            throw new ResponseException(ErrorCodes.ERROR_CODE_NOT_ALLOW, "you.cant.update.this.company");
+
+        if (!companyDTO.getName().equals(employer.getCompany().getName()))
+            throw new ResponseException(ErrorCodes.ERROR_CODE_NOT_ALLOW, "cant.change.company.name");
+
+        companyRepository.save(companyMapper.toEntity(companyDTO));
+    }
+
+    public List<CompanyDomain> getCompanyList() {
+        List<CompanyDomain> domains = new ArrayList<>();
+        companyRepository.findAll().forEach(company -> {
+            domains.add(companyMapper.toDomain(company));
+        });
+        return domains;
     }
 }
