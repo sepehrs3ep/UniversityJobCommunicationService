@@ -14,6 +14,26 @@ public class CompanyDTO extends DTOBase {
 
     private String logoDataUrl;
 
+    public CompanyDTO(Long id ,String name, Integer categoryTypeIndex, String bio, String address, String logoDataUrl) {
+        super.setId(id);
+        this.name = name;
+        this.categoryTypeIndex = categoryTypeIndex;
+        this.bio = bio;
+        this.address = address;
+        this.logoDataUrl = logoDataUrl;
+    }
+
+    public CompanyDTO(String name, Integer categoryTypeIndex, String bio, String address, String logoDataUrl) {
+        this.name = name;
+        this.categoryTypeIndex = categoryTypeIndex;
+        this.bio = bio;
+        this.address = address;
+        this.logoDataUrl = logoDataUrl;
+    }
+
+    public CompanyDTO() {
+    }
+
     public String getLogoDataUrl() {
         return logoDataUrl;
     }

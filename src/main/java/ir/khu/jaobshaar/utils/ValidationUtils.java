@@ -1,9 +1,14 @@
 package ir.khu.jaobshaar.utils;
 
+import ir.khu.jaobshaar.entity.enums.CompanyCategoryType;
+import ir.khu.jaobshaar.entity.enums.CooperationType;
+import ir.khu.jaobshaar.entity.enums.JobCategoryType;
 import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
 import ir.khu.jaobshaar.entity.model.Employee;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.entity.model.Job;
+import ir.khu.jaobshaar.service.dto.JobDTO;
+import ir.khu.jaobshaar.service.dto.employer.CompanyDTO;
 import ir.khu.jaobshaar.service.dto.user.ChangePasswordDTO;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
@@ -77,5 +82,27 @@ public class ValidationUtils {
         if (!changePasswordDTO.getNewPass().equals(changePasswordDTO.getRepeatNewPass()))
             throw new ResponseException(ErrorCodes.ERROR_CODE_INPUT_PASSWORDS_NOT_MATCH, "these.password.not.match");
 
+    }
+
+    public static void validJobForUpdate(JobDTO jobDTO){
+        try {
+            JobCategoryType.fromKey(jobDTO.getCategoryTypeIndex());
+            CooperationType.fromKey(jobDTO.getCooperationTypeIndex());
+            RequiredGenderType.fromKey(jobDTO.getRequiredGenderTypeIndex());
+        }catch (IllegalArgumentException e) {
+            throw new ResponseException(ErrorCodes.ERROR_CODE_INVALID_ENUM_INDEX, "enum.index.not.found");
+        }
+        if (jobDTO.getId() == null)
+            throw new ResponseException(ErrorCodes.ERROR_CODE_ID_MUST_NOT_BE_NULL,"id must not be null");
+    }
+
+    public static void validCompanyForUpdate(CompanyDTO companyDTO){
+        try {
+            CompanyCategoryType.fromKey(companyDTO.getCategoryTypeIndex());
+        }catch (IllegalArgumentException e){
+            throw new ResponseException(ErrorCodes.ERROR_CODE_INVALID_ENUM_INDEX, "enum.index.not.found");
+        }
+        if (companyDTO.getId() == null)
+            throw new ResponseException(ErrorCodes.ERROR_CODE_ID_MUST_NOT_BE_NULL,"id must not be null");
     }
 }

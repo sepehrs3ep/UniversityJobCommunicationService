@@ -25,4 +25,7 @@ public class ErrorCodes {
     public static final int ERROR_CODE_TAKEN_PASSWORD_BEFORE = 621;
     public static final int ERROR_CODE_INPUT_PASSWORDS_NOT_MATCH = 622;
     public static final int ERROR_CODE_INVALID_OLD_PASS = 623;
+    public static final int ERROR_CODE_INVALID_ENUM_INDEX = 624;
+    public static final int ERROR_CODE_ID_MUST_NOT_BE_NULL = 625;
+    public static final int ERROR_CODE_COMPANY_NOT_FOUND = 626;
 }

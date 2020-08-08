@@ -20,6 +20,10 @@ public class Employee extends User {
     @Column(nullable = false)
     private RequiredGenderType genderType;
 
+    public Employee(RequiredGenderType requiredGenderType) {
+        this.genderType =requiredGenderType;
+    }
+
     public Employee() {
     }
 

@@ -163,4 +163,9 @@ public class ResumeManager {
                 throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "resume.file.not.found");
         throw new ResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, "this.resume.was.not.sent.to.you");
     }
+
+    public void deleteResume(boolean isFile){
+
+
+    }
 }
