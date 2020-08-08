@@ -5,6 +5,15 @@ public class ChangePasswordDTO {
     private String newPass;
     private String repeatNewPass;
 
+    public ChangePasswordDTO(String oldPass, String newPass, String repeatNewPass) {
+        this.oldPass = oldPass;
+        this.newPass = newPass;
+        this.repeatNewPass = repeatNewPass;
+    }
+
+    public ChangePasswordDTO() {
+    }
+
     public String getOldPass() {
         return oldPass;
     }

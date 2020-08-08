@@ -49,8 +49,20 @@ public class JobController {
         return ResponseEntity.ok(jobManager.getJobById(id));
     }
 
+    // TODO write better algorithm for job suggestion
     @GetMapping("/same-jobs")
     public ResponseEntity<List<JobDomain>> getSameJobs(@RequestParam long id) {
         return ResponseEntity.ok(jobManager.findSameJobs(id));
+    }
+
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody JobDTO jobDTO){
+        return ResponseEntity.ok(jobManager.updateJob(jobDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id){
+        jobManager.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }

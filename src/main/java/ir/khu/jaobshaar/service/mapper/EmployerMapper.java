@@ -3,7 +3,7 @@ package ir.khu.jaobshaar.service.mapper;
 import ir.khu.jaobshaar.entity.enums.PersonRuleTypeConverter;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.service.domain.EmployerDomain;
-import ir.khu.jaobshaar.service.dto.EmployerDTO;
+import ir.khu.jaobshaar.service.dto.employer.EmployerDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

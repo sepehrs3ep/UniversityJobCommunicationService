@@ -53,4 +53,10 @@ public class ResumeController {
     public ResponseEntity<Resource> getResume(long id) {
         return ResponseEntity.ok().body(fileStorageService.loadFileAsResource(resumeManager.getResumeName(id)));
     }
+
+    @DeleteMapping
+    public ResponseEntity<?> delete(boolean isFileResume){
+        resumeManager.deleteResume(isFileResume);
+        return ResponseEntity.ok().build();
+    }
 }

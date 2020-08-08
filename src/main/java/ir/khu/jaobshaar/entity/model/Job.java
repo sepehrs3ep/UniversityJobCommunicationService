@@ -39,7 +39,12 @@ public class Job extends EntityBase {
     @OneToMany(mappedBy = "id.job")
     private List<EmployeeJobs> employeeJobs;
 
+
     public Job() {
+    }
+
+    public Job(RequiredGenderType requiredGenderTypeIndex) {
+        this.requiredGenderTypeIndex =requiredGenderTypeIndex;
     }
 
     public String getTitle() {

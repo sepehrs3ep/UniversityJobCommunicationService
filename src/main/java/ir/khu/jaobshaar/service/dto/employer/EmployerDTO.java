@@ -1,6 +1,6 @@
-package ir.khu.jaobshaar.service.dto;
+package ir.khu.jaobshaar.service.dto.employer;
 
-import ir.khu.jaobshaar.service.dto.employer.CompanyDTO;
+import ir.khu.jaobshaar.service.dto.JobDTO;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 
 import java.util.Set;

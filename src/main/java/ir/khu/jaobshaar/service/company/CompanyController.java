@@ -6,11 +6,9 @@ import ir.khu.jaobshaar.service.dto.employer.CompanyDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @CrossOrigin
-@RequestMapping("/api/company")
+@RequestMapping("/api")
 public class CompanyController {
 
     private final CompanyManager companyManager;
@@ -19,20 +17,25 @@ public class CompanyController {
         this.companyManager = companyManager;
     }
 
-    @PostMapping
+    @PostMapping("/company")
     public ResponseEntity<?> addCompany(@RequestBody CompanyDTO companyDTO) {
         companyManager.addCompany(companyDTO);
         return ResponseEntity.ok(companyDTO);
     }
 
-    @PutMapping
-    public ResponseEntity<?> updateCompany(@RequestBody CompanyDTO companyDTO) {
-        companyManager.updateCompany(companyDTO);
-        return ResponseEntity.ok("ok");
+    @GetMapping
+    public ResponseEntity<CompanyDomain> getCompany(){
+        return ResponseEntity.ok(companyManager.getCurrentUserCompany());
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<CompanyDomain>> getCompanyList() {
-        return ResponseEntity.ok(companyManager.getCompanyList());
+    @PutMapping
+    public ResponseEntity<CompanyDomain> update(@RequestBody CompanyDTO companyDTO){
+        return ResponseEntity.ok(companyManager.update(companyDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id){
+        companyManager.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }

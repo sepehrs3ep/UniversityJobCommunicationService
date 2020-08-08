@@ -116,4 +116,34 @@ public class JobManager {
                         & job.getCooperationTypeIndex().toKey().equals(jobDomain.getCooperationTypeIndex()))
                 .map(jobMapper::toDomain).collect(Collectors.toList());
     }
+
+    public JobDomain updateJob(JobDTO jobDTO){
+        ValidationUtils.validJobForUpdate(jobDTO);
+
+        Optional<Job> job = jobRepository.findById(jobDTO.getId());
+        if (job.isEmpty())
+            throw new ResponseException(ErrorCodes.ERROR_CODE_JOB_NOT_FOUND,"job not found");
+
+        // add fixed columns
+        Job toBeUpdate =jobMapper.toEntity(jobDTO);
+        toBeUpdate.setEmployer(job.get().getEmployer());
+        toBeUpdate.setDate(job.get().getDate());
+        toBeUpdate.setEmployeeJobs(job.get().getEmployeeJobs());
+
+        return jobMapper.toDomain(jobRepository.save(toBeUpdate));
+    }
+
+    public void deleteById(Long id){
+        if (id == null)
+            throw new ResponseException(ErrorCodes.ERROR_CODE_ID_MUST_NOT_BE_NULL,"id must not be null");
+
+        User user = userDetailsService.getCurrentUser();
+        if (user.getRoleTypeIndex().equals(PersonRuleType.EMPLOYEE))
+            throw new ResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED,"you dont have employer rule");
+
+        if (!employerRepository.findByUsername(user.getUsername()).getJobs().stream().map(Job::getId).collect(Collectors.toList()).contains(id))
+            throw new ResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED,"you are not owner this job");
+
+        jobRepository.deleteById(id);
+    }
 }
