@@ -12,6 +12,23 @@ public class JobDTO extends DTOBase {
 
     private String title;
 
+    public JobDTO(Long  id , Integer categoryTypeIndex, Integer cooperationTypeIndex, Integer requiredGenderTypeIndex, String description, String title) {
+        super.setId(id);
+        this.categoryTypeIndex = categoryTypeIndex;
+        this.cooperationTypeIndex = cooperationTypeIndex;
+        this.requiredGenderTypeIndex = requiredGenderTypeIndex;
+        this.description = description;
+        this.title = title;
+    }
+
+    public JobDTO(Integer categoryTypeIndex, Integer cooperationTypeIndex, Integer requiredGenderTypeIndex, String description, String title) {
+        this.categoryTypeIndex = categoryTypeIndex;
+        this.cooperationTypeIndex = cooperationTypeIndex;
+        this.requiredGenderTypeIndex = requiredGenderTypeIndex;
+        this.description = description;
+        this.title = title;
+    }
+
     public JobDTO() {
     }
 

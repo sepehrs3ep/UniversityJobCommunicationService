@@ -20,6 +20,10 @@ public class Employer extends User {
     public Employer() {
     }
 
+    public Employer(Set<Job> jobs) {
+        this.jobs = jobs;
+    }
+
     public Employer(String username, String password, String email, PersonRuleType role) {
         super(username, password, email, role);
     }
