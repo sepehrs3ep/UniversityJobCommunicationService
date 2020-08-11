@@ -128,15 +128,25 @@ public class EmployeeManager {
             } else
                 throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "first.upload.resume.url");
 
-            ThreadUtil.createThreadAndStart(() -> {
-                try {
-                    emailService.sendEmailWithLink(job.getEmployer().getEmail(), job.getTitle(),
-                            "dear " + job.getEmployer().getUsername() + "<br>" + " someone send resume for your job please check the blew url resume", employee.getResume().getUrl());
-                    System.out.println("send");
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                }
-            });
+            // if employee has the file resume, the employer must go to site and see employee's resume
+            if (employee.getResume().getUuid() != null)
+                ThreadUtil.createThreadAndStart(() -> {
+                    emailService.sendEmail(job.getEmployer().getEmail(), job.getTitle(),
+                            "dear " + job.getEmployer().getUsername() +
+                                    "<br>" + " someone send resume for your job please check your account and see the new resumes");
+                });
+
+            // if employee has no file resume and has url resume then send the url to employer
+            if (employee.getResume().getUrl() != null && employee.getResume().getUuid() == null)
+                ThreadUtil.createThreadAndStart(() -> {
+                    try {
+                        emailService.sendEmailWithLink(job.getEmployer().getEmail(), job.getTitle(),
+                                "dear " + job.getEmployer().getUsername() +
+                                        "<br>" + " someone send resume for your job please check the blew url resume", employee.getResume().getUrl());
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                });
 
         } else
             throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED,
