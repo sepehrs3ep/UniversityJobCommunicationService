@@ -25,4 +25,5 @@ public class ErrorCodes {
     public static final int ERROR_CODE_TAKEN_PASSWORD_BEFORE = 621;
     public static final int ERROR_CODE_INPUT_PASSWORDS_NOT_MATCH = 622;
     public static final int ERROR_CODE_INVALID_OLD_PASS = 623;
+    public static final int ERROR_CODE_NOT_ALLOW = 624;
 }

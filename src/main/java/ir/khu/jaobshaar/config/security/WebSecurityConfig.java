@@ -61,11 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .antMatchers(
-                        "/**",
                         "/*.html",
                         "/favicon.ico",
                         "/**/*.html",
@@ -76,10 +76,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.jpg",
                         "/**/*.png",
                         "/**/manifest.json"
-
-                );
+                ).mvcMatchers(HttpMethod.GET, "api/jobs")
+                .mvcMatchers(HttpMethod.GET, "/api/company/list");
 
     }
+
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -92,13 +93,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/employer/register",
                 "/api/employer/login",
                 "/account/login",
-                "/",
-                "/**",
                 "/assets/scss/**",
                 "/assets/fonts/**",
                 "/assets/images/**",
-                "api/account/forget-password",
-                "api/configs/error-codes-translator"
+                "/api/account/forget-password",
+                "/api/configs/error-codes-translator",
+                "/api/jobs/employee",
+                "/api/jobs/same-jobs"
         ).permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and()
