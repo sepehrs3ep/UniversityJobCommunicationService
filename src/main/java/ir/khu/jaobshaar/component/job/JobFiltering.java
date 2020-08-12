@@ -18,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -37,7 +38,6 @@ public class JobFiltering {
         CriteriaQuery<Job> cq = cb.createQuery(Job.class);
         Root<Job> root = cq.from(Job.class);
         List<Predicate> predicates = new ArrayList<>();
-
         List<Employer> employers = new ArrayList<>();
         if (jobCriteria.getCompanyName() != null) {
             CompanyCriteria companyCriteria = new CompanyCriteria();
@@ -80,7 +80,9 @@ public class JobFiltering {
 		if (jobCriteria.getToDate() != null)
 			predicates.add(cb.lessThanOrEqualTo(root.get(Job_.DATE), jobCriteria.getToDate()));
 */
-        TypedQuery<Job> typedQuery = entityManager.createQuery(cq.select(root).where(predicates.toArray(new Predicate[predicates.size()])));
+        TypedQuery<Job> typedQuery = entityManager.createQuery(cq.select(root).where(predicates.toArray(new Predicate[predicates.size()])).orderBy(
+        		cb.desc(root.get("date"))
+		));
         if (pageable.isPaged())
             typedQuery.setFirstResult((int) pageable.getOffset()).setMaxResults(pageable.getPageSize());
         return typedQuery.getResultList();
